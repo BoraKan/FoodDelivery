@@ -11,6 +11,8 @@ import Profile from './component/Dashboard/profile/profile';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { getTotals } from './component/Dashboard/cart/cartslice';
+import { AuthProvider } from './context/AuthContext';
+import { ProtectedRoute, PublicRoute } from './components/ProtectedRoute';
 
 // Yeni component'ler
 import Categories from './component/Dashboard/home/categories/categories.js';
@@ -32,18 +34,18 @@ function AppWrapper() {
     <>
       {shouldShowHeader && <Header />}
       <Switch>
-        <Route exact path='/register' component={Register} />
-        <Route path='/login' component={Login} />
-        <Route path='/home' component={Home} />
-        <Route path='/cart' component={Cart} />
-        <Route path='/singledish' component={Singledish} />
-        <Route path='/alldish' component={Alldish} />
-        <Route path='/profile' component={Profile} />
-        <Route path='/categories/turkishfood' component={TurkishFood} />
-        <Route path='/categories/burger' component={Burger} />
-        <Route path='/categories/pizza' component={Pizza} />
-        <Route path='/categories' component={Categories} />
-        <Route path='/menu/:id' component={RestaurantMenu} />
+        <PublicRoute exact path='/' component={Register} />
+        <PublicRoute path='/login' component={Login} />
+        <ProtectedRoute path='/home' component={Home} />
+        <ProtectedRoute path='/cart' component={Cart} />
+        <ProtectedRoute path='/singledish' component={Singledish} />
+        <ProtectedRoute path='/alldish' component={Alldish} />
+        <ProtectedRoute path='/profile' component={Profile} />
+        <ProtectedRoute path='/categories/turkishfood' component={TurkishFood} />
+        <ProtectedRoute path='/categories/burger' component={Burger} />
+        <ProtectedRoute path='/categories/pizza' component={Pizza} />
+        <ProtectedRoute path='/categories' component={Categories} />
+        <ProtectedRoute path='/menu/:id' component={RestaurantMenu} />
       </Switch>
     </>
   );
@@ -52,9 +54,11 @@ function AppWrapper() {
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <AppWrapper />
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <AppWrapper />
+        </BrowserRouter>
+      </AuthProvider>
     </Provider>
   );
 }

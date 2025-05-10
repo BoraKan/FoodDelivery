@@ -1,72 +1,97 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import "../register/register.css";
+import React, { useState } from 'react';
+import { useHistory, Link } from 'react-router-dom';
+import axios from 'axios';
+import './register.css';
 
 function Register() {
-  const [username, setUsername] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [password, setPassword] = useState("");
-  const [msg, setMsg] = useState("");
-  const [nameErr, setNameErr] = useState(false);
+  const [formData, setFormData] = useState({
+    username: '',
+    first_name: '',
+    last_name: '',
+    password: ''
+  });
+  const [error, setError] = useState('');
   const history = useHistory();
 
-  async function handleRegister() {
-    if (!username.trim() || !firstName.trim() || !lastName.trim() || !password.trim()) {
-      setNameErr(true);
-      return;
-    }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
 
-    if (password.length < 5) {
-      alert("Şifre en az 5 karakter olmalı");
-      return;
-    }
-
-    setNameErr(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
 
     try {
-      const res = await fetch("http://localhost:8080/user/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password, firstName, lastName }),
-      });
-
-      const data = await res.json();
-
-      if (res.status === 409) {
-        setMsg(data.error || "Bu kullanıcı adı zaten kullanılıyor.");
-      } else if (!res.ok) {
-        setMsg("Kayıt başarısız.");
-      } else {
-        setMsg("Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz...");
-        setTimeout(() => {
-          history.push("/login"); // ✅ Login sayfasına yönlendirme
-        }, 1500);
+      const response = await axios.post('http://localhost:8080/register', formData);
+      if (response.data) {
+        // Redirect to login page after successful registration
+        history.push('/login');
       }
     } catch (err) {
-      console.error("Kayıt sırasında hata:", err);
-      setMsg("Sunucu hatası, lütfen tekrar deneyin.");
+      setError(err.response?.data?.message || 'Registration failed. Please try again.');
     }
-  }
+  };
 
   return (
-    <div className="register-body">
-      <div className="register-main">
-        <h1>Kayıt Formu</h1>
-        {nameErr && <p className="errP">*Lütfen tüm alanları doldurun*</p>}
-        {msg && <p className="errP">{msg}</p>}
-        <br />
-        <p>İsim</p>
-        <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-        <p>Soyisim</p>
-        <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-        <p>Kullanıcı Adı</p>
-        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-        <p>Şifre</p>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <br /><br />
-        <button onClick={handleRegister}>Kayıt Ol</button>
-      </div>
+    <div className="register-container">
+      <form onSubmit={handleSubmit} className="register-form">
+        <h2>Register</h2>
+        {error && <div className="error-message">{error}</div>}
+        
+        <div className="form-group">
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <input
+            type="text"
+            name="first_name"
+            placeholder="First Name"
+            value={formData.first_name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <input
+            type="text"
+            name="last_name"
+            placeholder="Last Name"
+            value={formData.last_name}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <button type="submit">Register</button>
+        
+        <p className="login-link">
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
+      </form>
     </div>
   );
 }
