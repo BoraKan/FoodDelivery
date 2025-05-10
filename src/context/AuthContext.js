@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
 
   const checkAuth = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/user?username=oguz12', {
+      const response = await axios.get('http://localhost:8080/user/me', {
         withCredentials: true
       });
       if (response.data) {
