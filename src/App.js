@@ -26,7 +26,7 @@ store.dispatch(getTotals());
 
 function AppWrapper() {
   const location = useLocation();
-  const hideHeaderRoutes = ['/', '/login'];
+  const hideHeaderRoutes = ['/register', '/login'];
 
   const shouldShowHeader = !hideHeaderRoutes.includes(location.pathname.toLowerCase());
 
@@ -34,7 +34,7 @@ function AppWrapper() {
     <>
       {shouldShowHeader && <Header />}
       <Switch>
-        <PublicRoute exact path='/' component={Register} />
+        <PublicRoute exact path='/register' component={Register} />
         <PublicRoute path='/login' component={Login} />
         <ProtectedRoute path='/home' component={Home} />
         <ProtectedRoute path='/cart' component={Cart} />

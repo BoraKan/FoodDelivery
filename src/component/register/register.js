@@ -6,12 +6,19 @@ import './register.css';
 function Register() {
   const [formData, setFormData] = useState({
     username: '',
-    first_name: '',
-    last_name: '',
+    firstName: '',
+    lastName: '',
     password: ''
   });
   const [error, setError] = useState('');
   const history = useHistory();
+
+  const payload = {
+  username: formData.username,
+  password: formData.password,
+  firstName: formData.first_name, // 👈 camelCase
+  lastName: formData.last_name   // 👈 camelCase
+};
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +33,7 @@ function Register() {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:8080/register', formData);
+      const response = await axios.post('http://localhost:8080/register', payload);
       if (response.data) {
         // Redirect to login page after successful registration
         history.push('/login');
