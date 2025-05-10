@@ -1,81 +1,99 @@
 html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', sans-serif;
 }
 
+/* Kapsayıcı */
+.register-body, .login-body {
+  background-image: url("/public/images/bg-register.png"); /* ✅ NOT: /public yazılmaz */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Merkezlenmiş kutu */
 .register-main, .login-main {
-    width: 450px;
-    display: flex;
-    flex-flow: column;
-    position: relative;
-    margin: auto;
-    margin-top: 60px;
-    padding: 50px;
-    background-color: rgba(253, 254, 254, 0.9);
-    border-radius: 10px;
-    box-shadow: 2px 2px 6px black;
+  width: 450px;
+  display: flex;
+  flex-direction: column;
+  margin: 60px auto;
+  padding: 50px;
+  background-color: rgba(253, 254, 254, 0.95);
+  border-radius: 10px;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.3);
 }
 
-.register-main p, .login-main p {
-    line-height: 6px;
-    font-size: 18px;
-}
-
+/* Başlık */
 .register-main h1, .login-main h1 {
-    align-self: center;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 26px;
+  color: #333;
 }
 
+/* Etiketler */
+.register-main p, .login-main p {
+  margin: 10px 0 5px;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Giriş kutuları */
 .register-main input, .login-main input {
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    background-color: transparent;
-    outline-style: none;
-    color: dimgrey;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  background-color: transparent;
+  outline: none;
+  color: black;
+  font-size: 16px;
+  padding: 8px 4px;
+  transition: border-color 0.3s;
 }
 
-input:focus {
-    border-color: rgb(168, 82, 22);
-    caret-color: chocolate;
+.register-main input:focus, .login-main input:focus {
+  border-bottom: 2px solid rgb(168, 82, 22);
+  caret-color: chocolate;
 }
 
+/* Buton */
 .register-main button, .login-main button {
-    margin: 20px 0px !important;
-    height: 40px;
-    width: 100px;
-    align-self: center;
-    border: none;
-    background-color: rgb(11, 169, 11);
-    color: white;
+  margin-top: 25px;
+  height: 40px;
+  width: 120px;
+  align-self: center;
+  border: none;
+  background-color: rgb(11, 169, 11);
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .register-main button:hover, .login-main button:hover {
-    box-shadow: 2px 3px 5px black;
-    background-color: rgb(3, 149, 3);
+  box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.3);
+  background-color: rgb(3, 149, 3);
 }
 
-.login-body, .register-body {
-    background-image: url('/public/images/bg-register.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-.login-content {
-    flex: 1;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
+/* Alt bilgi */
 .login-footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    font-size: 14px;
+  text-align: center;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 14px;
+}
+
+/* Uyarı mesajları */
+.errP {
+  color: crimson;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
 }

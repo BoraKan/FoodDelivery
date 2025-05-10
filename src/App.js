@@ -32,7 +32,7 @@ function AppWrapper() {
     <>
       {shouldShowHeader && <Header />}
       <Switch>
-        <Route exact path='/' component={Register} />
+        <Route exact path='/register' component={Register} />
         <Route path='/login' component={Login} />
         <Route path='/home' component={Home} />
         <Route path='/cart' component={Cart} />
