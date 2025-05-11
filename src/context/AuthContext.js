@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await axios.post('http://localhost:8080/login', 
+      const response = await axios.post('http://localhost:8080/user/login', 
         { username, password },
         { withCredentials: true }
       );

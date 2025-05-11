@@ -35,7 +35,7 @@
 
 .form-group input:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: #c96219;
 }
 
 .error-message {
@@ -47,7 +47,7 @@
 button {
   width: 100%;
   padding: 0.75rem;
-  background-color: #007bff;
+  background-color: #c96219;
   color: white;
   border: none;
   border-radius: 4px;
@@ -58,7 +58,7 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #aa4f16;
 }
 
 .register-link {
@@ -68,7 +68,7 @@ button:hover {
 }
 
 .register-link a {
-  color: #007bff;
+  color: #aa4f16;
   text-decoration: none;
 }
 

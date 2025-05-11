@@ -33,7 +33,7 @@ function Register() {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:8080/register', payload);
+      const response = await axios.post('http://localhost:8080/user/register', payload);
       if (response.data) {
         // Redirect to login page after successful registration
         history.push('/login');
